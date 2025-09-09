@@ -1,9 +1,7 @@
 package JournalApplication.Journal.JournalEntry;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,4 +20,16 @@ public class JournalEntryController {
     public List<JournalEntry> getJournalEntries() {
         return journalEntryService.getJournalEntries();
     }
+
+    @PostMapping
+    public void createNewJournalEntry(@RequestBody JournalEntry entry) {
+        journalEntryService.createNewJournalEntry(entry);
+    }
+
+    @DeleteMapping(path = "{journalEntryId}")
+    public void deleteJournalEntry(@PathVariable("journalEntryId") Long id) {
+        journalEntryService.deleteJournalEntry(id);
+    }
+
+
 }

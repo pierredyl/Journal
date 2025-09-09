@@ -1,8 +1,23 @@
 package JournalApplication.Journal.JournalEntry;
 
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
 
+@Entity
+@Table
 public class JournalEntry {
+
+    @Id
+    @SequenceGenerator(
+            name = "journalentry_sequence",
+            sequenceName = "journalentry_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "journalentry_sequence"
+    )
     private Long id;
     private String content;
     private LocalDate created;
