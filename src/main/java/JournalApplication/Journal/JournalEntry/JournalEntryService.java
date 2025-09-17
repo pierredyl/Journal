@@ -1,11 +1,11 @@
 package JournalApplication.Journal.JournalEntry;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -23,14 +23,14 @@ public class JournalEntryService {
         return journalEntryRepository.findAll();
     }
 
-    public void createNewJournalEntry(JournalEntry entry) {
+    public JournalEntry createNewJournalEntry(JournalEntry entry) {
         Optional<JournalEntry> journalEntryOptional = journalEntryRepository.findJournalEntryByName(entry.getName());
 
         if (journalEntryOptional.isPresent()) {
             throw new IllegalStateException("Journal name already exists.");
         }
 
-        journalEntryRepository.save(entry);
+        return journalEntryRepository.save(entry);
     }
 
     public void deleteJournalEntry(Long journalEntryId) {
@@ -41,6 +41,12 @@ public class JournalEntryService {
         }
 
         journalEntryRepository.deleteById(journalEntryId);
+    }
+
+    public JournalEntry updateJournalEntry(JournalEntry entry) {
+        journalEntryRepository.findJournalEntryById(entry.getId()).orElseThrow();
+
+        return journalEntryRepository.save(entry);
     }
 
 }

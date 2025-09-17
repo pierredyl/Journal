@@ -22,14 +22,21 @@ public class JournalEntryController {
     }
 
     @PostMapping
-    public void createNewJournalEntry(@RequestBody JournalEntry entry) {
-        journalEntryService.createNewJournalEntry(entry);
+    public JournalEntry createNewJournalEntry(@RequestBody JournalEntry entry) {
+        return journalEntryService.createNewJournalEntry(entry);
     }
 
     @DeleteMapping(path = "{journalEntryId}")
     public void deleteJournalEntry(@PathVariable("journalEntryId") Long id) {
         journalEntryService.deleteJournalEntry(id);
     }
+
+    @PutMapping(path = "{journalEntryId}")
+    public JournalEntry updateJournalEntry(@RequestBody JournalEntry entry) {
+        return journalEntryService.updateJournalEntry(entry);
+
+    }
+
 
 
 }

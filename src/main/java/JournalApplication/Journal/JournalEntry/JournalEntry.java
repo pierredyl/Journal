@@ -19,6 +19,8 @@ public class JournalEntry {
             generator = "journalentry_sequence"
     )
     private Long id;
+
+    @Column(columnDefinition = "TEXT")
     private String content;
     private LocalDate created;
     private String name;
